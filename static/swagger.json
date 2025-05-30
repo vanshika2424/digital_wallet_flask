@@ -1,0 +1,188 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Digital Wallet API",
+    "description": "API documentation for the Digital Wallet System",
+    "version": "1.0.0"
+  },
+  "basePath": "/api",
+  "schemes": ["http", "https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Register a new user",
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "email": {"type": "string"},
+              "password": {"type": "string"},
+              "first_name": {"type": "string"},
+              "last_name": {"type": "string"}
+            }
+          }
+        }],
+        "responses": {
+          "201": {"description": "User registered successfully"},
+          "400": {"description": "Invalid input"}
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login user",
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "email": {"type": "string"},
+              "password": {"type": "string"}
+            }
+          }
+        }],
+        "responses": {
+          "200": {"description": "Login successful"},
+          "401": {"description": "Invalid credentials"}
+        }
+      }
+    },
+    "/wallet/balance": {
+      "get": {
+        "summary": "Get wallet balance",
+        "security": [{"Bearer": []}],
+        "responses": {
+          "200": {"description": "Balance retrieved successfully"},
+          "404": {"description": "Wallet not found"}
+        }
+      }
+    },
+    "/wallet/deposit": {
+      "post": {
+        "summary": "Deposit funds",
+        "security": [{"Bearer": []}],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "amount": {"type": "number"}
+            }
+          }
+        }],
+        "responses": {
+          "200": {"description": "Deposit successful"},
+          "400": {"description": "Invalid amount"}
+        }
+      }
+    },
+    "/wallet/withdraw": {
+      "post": {
+        "summary": "Withdraw funds",
+        "security": [{"Bearer": []}],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "amount": {"type": "number"}
+            }
+          }
+        }],
+        "responses": {
+          "200": {"description": "Withdrawal successful"},
+          "400": {"description": "Invalid amount or insufficient funds"}
+        }
+      }
+    },
+    "/wallet/transfer": {
+      "post": {
+        "summary": "Transfer funds to another user",
+        "security": [{"Bearer": []}],
+        "parameters": [{
+          "in": "body",
+          "name": "body",
+          "required": true,
+          "schema": {
+            "type": "object",
+            "properties": {
+              "receiver_email": {"type": "string"},
+              "amount": {"type": "number"}
+            }
+          }
+        }],
+        "responses": {
+          "200": {"description": "Transfer successful"},
+          "400": {"description": "Invalid transfer details"}
+        }
+      }
+    },
+    "/wallet/transactions": {
+      "get": {
+        "summary": "Get transaction history",
+        "security": [{"Bearer": []}],
+        "responses": {
+          "200": {"description": "Transactions retrieved successfully"}
+        }
+      }
+    },
+    "/admin/suspicious-transactions": {
+      "get": {
+        "summary": "Get suspicious transactions",
+        "security": [{"Bearer": []}],
+        "responses": {
+          "200": {"description": "Suspicious transactions retrieved successfully"},
+          "403": {"description": "Admin access required"}
+        }
+      }
+    },
+    "/admin/user-balances": {
+      "get": {
+        "summary": "Get all user balances",
+        "security": [{"Bearer": []}],
+        "responses": {
+          "200": {"description": "User balances retrieved successfully"},
+          "403": {"description": "Admin access required"}
+        }
+      }
+    },
+    "/admin/top-users": {
+      "get": {
+        "summary": "Get top users by balance and volume",
+        "security": [{"Bearer": []}],
+        "responses": {
+          "200": {"description": "Top users retrieved successfully"},
+          "403": {"description": "Admin access required"}
+        }
+      }
+    },
+    "/admin/system-stats": {
+      "get": {
+        "summary": "Get system statistics",
+        "security": [{"Bearer": []}],
+        "responses": {
+          "200": {"description": "System statistics retrieved successfully"},
+          "403": {"description": "Admin access required"}
+        }
+      }
+    }
+  }
+}
