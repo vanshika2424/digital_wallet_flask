@@ -251,6 +251,7 @@ curl -X GET http://localhost:5000/api/admin/suspicious-transactions \
   -H "Authorization: Bearer <admin-token>"
 ```
 2. Soft Delete for Users and Transactions
+   
  Soft Delete a User
 
 ```bash
@@ -275,6 +276,7 @@ curl -X GET http://localhost:5000/api/admin/transactions/deleted \
   -H "Authorization: Bearer <admin-token>"
 ```
  3. Mocked Email Alerts for Suspicious Activity
+    
 Alerts are logged (not sent) and triggered by unusual activity.
 
  Trigger Large Transaction Alert
