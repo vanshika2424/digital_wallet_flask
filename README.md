@@ -4,7 +4,7 @@ A secure, Flask-based backend system for digital wallet operations. Supports use
 
 ---
 
-## 🔧 Features
+##  Features
 
 ### 1.  User Authentication & Session Management
 - User registration and login
