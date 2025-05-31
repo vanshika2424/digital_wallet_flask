@@ -454,13 +454,7 @@ curl -X POST http://localhost:5000/api/wallet/deposit \
 
 Access the Swagger documentation at `/api/docs` when the application is running.
 
-## Security Features
 
-- Password hashing using bcrypt
-- JWT token authentication
-- Rate limiting
-- Transaction validation
-- Fraud detection mechanisms
 
 ## Demo Video
 
