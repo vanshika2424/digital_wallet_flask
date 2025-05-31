@@ -54,28 +54,6 @@ A secure, Flask-based backend system for digital wallet operations. Supports use
 - **Docs**: Swagger at `/api/docs`
 - **Testing**: Postman, cURL, Python `requests`, PowerShell
 
----
-## Setup
-
-```bash
-# Setup environment
-python -m venv venv
-.\venv\Scripts\activate  # Windows
-source venv/bin/activate   # Unix/MacOS
-
-# Install & initialize
-pip install -r requirements.txt
-python init_db.py
-python app.py
-```
-
-Environment variables (.env):
-```
-SECRET_KEY=your_secret_key
-DATABASE_URL=sqlite:///digital_wallet.db
-JWT_SECRET_KEY=your_jwt_secret
-```
-
 ## API Reference
 
 ### User Endpoints
@@ -128,28 +106,7 @@ response = requests.get('http://localhost:5000/api/wallet/balance', headers=head
 print(response.json())
 ```
 
-## Setup
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd digital_wallet_flask
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. Initialize the database:
-```bash
-python -c "from app import app, db; app.app_context().push(); db.create_all()"
-```
-
-4. Run the application:
-```bash
-python app.py
-```
 
 ## API Usage
 
@@ -411,14 +368,12 @@ JWT_SECRET_KEY=your_jwt_secret
 
 4. Initialize the database:
 ```bash
-flask db init
-flask db migrate
-flask db upgrade
+python init_db.py
 ```
 
 5. Run the application:
 ```bash
-flask run
+python app.py
 ```
 
 ## Testing & Security
