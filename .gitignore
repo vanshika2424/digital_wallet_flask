@@ -41,6 +41,24 @@ logs/
 
 # Environment variables
 .env
+*.env
+config.env
+
+# Security
+*.pem
+*.key
+*.crt
+*.cer
+*.der
+*.priv
+
+# Secrets
+secrets.json
+config.json
+.secret_key
+
+# Environment variables
+.env
 
 # Flask
 instance/
