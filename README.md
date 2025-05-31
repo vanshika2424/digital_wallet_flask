@@ -464,3 +464,12 @@ Access the Swagger documentation at `/api/docs` when the application is running.
 - Rate limiting
 - Transaction validation
 - Fraud detection mechanisms
+
+## Demo Video
+
+Here is the demo video showcasing the features of the Digital Wallet system:  
+https://drive.google.com/file/d/17AtkpKye_b77It-pCktSQ0gfpOVLPjnW/view?usp=sharing)
+
+
+
+
