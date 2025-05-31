@@ -1,24 +1,60 @@
-# Digital Wallet System
+#  Digital Wallet System with Cash Management and Fraud Detection
 
-A Flask-based digital wallet with advanced fraud detection and monitoring.
+A secure, Flask-based backend system for digital wallet operations. Supports user registration, wallet transactions, fraud detection, admin analytics, and bonus features like email alerts and soft deletes.
 
-## Features
+---
 
-### Core
-- User authentication (JWT)
-- Wallet operations (deposits, withdrawals, transfers)
-- Real-time transaction processing
-- Admin dashboard with analytics
+## 🔧 Features
 
-### Security & Monitoring
-- Automated fraud detection:
+### 1.  User Authentication & Session Management
+- User registration and login
+- Secure password hashing using **bcrypt**
+- JWT-based session authentication
+- Auth middleware to protect endpoints
+
+### 2.  Wallet Operations
+- Deposit, withdraw, and transfer funds
+- Per-user transaction history
+- Soft delete for users and transactions
+
+### 3.  Transaction Processing & Validation
+- Fully atomic operations (credit/debit together)
+- Validations:
+  - No overdrafts
+  - No negative or invalid amounts
+
+### 4.  Basic Fraud Detection Logic
+- Detects:
   - Large transactions (>$10,000)
   - High-frequency transfers (>10/hour)
-  - Daily limit monitoring ($50,000)
-- Daily fraud scans and reports
-- Real-time email alerts
-- Soft delete system with audit trail
+  - Daily total limit breaches (>$50,000)
+- Logs and flags suspicious patterns
 
+### 5.  Admin & Reporting APIs
+- View flagged transactions
+- Aggregate user balances
+- View system stats
+- Soft-delete & view deleted users/transactions
+
+---
+
+##  Bonus Features
+
+- ✅ Scheduled daily fraud scan
+- ✅ Soft delete with audit trail
+- ✅ Mocked email alerts for suspicious activity
+
+---
+
+## Tech Stack
+
+- **Framework**: Python Flask
+- **Authentication**: JWT + bcrypt
+- **Database**: SQLite (configurable)
+- **Docs**: Swagger at `/api/docs`
+- **Testing**: Postman, cURL, Python `requests`, PowerShell
+
+---
 ## Setup
 
 ```bash
