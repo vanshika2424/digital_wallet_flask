@@ -40,9 +40,9 @@ A secure, Flask-based backend system for digital wallet operations. Supports use
 
 ##  Bonus Features
 
-- ✅ Scheduled daily fraud scan
-- ✅ Soft delete with audit trail
-- ✅ Mocked email alerts for suspicious activity
+- Scheduled daily fraud scan
+- Soft delete with audit trail
+- Mocked email alerts for suspicious activity
 
 ---
 
