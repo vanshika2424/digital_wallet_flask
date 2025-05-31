@@ -251,33 +251,33 @@ curl -X GET http://localhost:5000/api/admin/suspicious-transactions \
   -H "Authorization: Bearer <admin-token>"
 ```
 2. Soft Delete for Users and Transactions
-🧑‍💼 Soft Delete a User
+ Soft Delete a User
 
 ```bash
 curl -X DELETE http://localhost:5000/api/admin/users/<user_id>/delete \
   -H "Authorization: Bearer <admin-token>"
 ```
-👁️ View Deleted Users
+ View Deleted Users
 
 ```bash
 curl -X GET http://localhost:5000/api/admin/users/deleted \
   -H "Authorization: Bearer <admin-token>"
 ```
-💸 Soft Delete a Transaction
+ Soft Delete a Transaction
 ```bash
 curl -X DELETE http://localhost:5000/api/admin/transactions/<transaction_id>/delete \
   -H "Authorization: Bearer <admin-token>"
 ```
-👁️ View Deleted Transactions
+ View Deleted Transactions
 
 ```bash
 curl -X GET http://localhost:5000/api/admin/transactions/deleted \
   -H "Authorization: Bearer <admin-token>"
 ```
-✅ 3. Mocked Email Alerts for Suspicious Activity
+ 3. Mocked Email Alerts for Suspicious Activity
 Alerts are logged (not sent) and triggered by unusual activity.
 
-📩 Trigger Large Transaction Alert
+ Trigger Large Transaction Alert
 
 ```bash
 curl -X POST http://localhost:5000/api/wallet/deposit \
@@ -285,7 +285,7 @@ curl -X POST http://localhost:5000/api/wallet/deposit \
   -H "Content-Type: application/json" \
   -d '{"amount": 15000}'
 ```
-🔁 Trigger High-Frequency Transfers Alert (send 11+ transfers)
+ Trigger High-Frequency Transfers Alert (send 11+ transfers)
 
 ```bash
 curl -X POST http://localhost:5000/api/wallet/transfer \
@@ -293,7 +293,7 @@ curl -X POST http://localhost:5000/api/wallet/transfer \
   -H "Content-Type: application/json" \
   -d '{"receiver_id": 2, "amount": 100}'
 ```
-📝 View Flagged Transactions
+ View Flagged Transactions
 
 ```bash
 curl -X GET http://localhost:5000/api/admin/suspicious-transactions \
