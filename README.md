@@ -100,10 +100,7 @@ GET    /api/admin/users/deleted    # View deleted users
 GET    /api/admin/transactions/deleted    # View deleted transactions
 ```
 
-Detailed API documentation available at `/api/docs`
-- URL: http://localhost:5000/api/admin/suspicious-transactions
-- Headers:
-  - Authorization: Bearer <your-token>
+
 
 ### Alternative Testing Methods
 
