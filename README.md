@@ -229,7 +229,6 @@ curl -X GET http://localhost:5000/api/admin/user-balances \
 curl -X GET http://localhost:5000/api/admin/system-stats \
   -H "Authorization: Bearer <admin-token>"
 ```
-
 4. Soft delete a transaction:
 ```bash
 curl -X DELETE http://localhost:5000/api/admin/transactions/<transaction_id>/delete \
@@ -241,6 +240,70 @@ curl -X DELETE http://localhost:5000/api/admin/transactions/<transaction_id>/del
 curl -X GET http://localhost:5000/api/admin/transactions/deleted \
   -H "Authorization: Bearer <admin-token>"
 ```
+## Bonus Feature Commands
+
+ 1. Scheduled Job for Daily Fraud Scans  
+Automatically runs (e.g., via APScheduler) — no manual cURL trigger needed.
+
+**To view results:**  
+```bash
+curl -X GET http://localhost:5000/api/admin/suspicious-transactions \
+  -H "Authorization: Bearer <admin-token>"
+```
+2. Soft Delete for Users and Transactions
+🧑‍💼 Soft Delete a User
+
+```bash
+curl -X DELETE http://localhost:5000/api/admin/users/<user_id>/delete \
+  -H "Authorization: Bearer <admin-token>"
+```
+👁️ View Deleted Users
+
+```bash
+curl -X GET http://localhost:5000/api/admin/users/deleted \
+  -H "Authorization: Bearer <admin-token>"
+```
+💸 Soft Delete a Transaction
+```bash
+curl -X DELETE http://localhost:5000/api/admin/transactions/<transaction_id>/delete \
+  -H "Authorization: Bearer <admin-token>"
+```
+👁️ View Deleted Transactions
+
+```bash
+curl -X GET http://localhost:5000/api/admin/transactions/deleted \
+  -H "Authorization: Bearer <admin-token>"
+```
+✅ 3. Mocked Email Alerts for Suspicious Activity
+Alerts are logged (not sent) and triggered by unusual activity.
+
+📩 Trigger Large Transaction Alert
+
+```bash
+curl -X POST http://localhost:5000/api/wallet/deposit \
+  -H "Authorization: Bearer <your-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"amount": 15000}'
+```
+🔁 Trigger High-Frequency Transfers Alert (send 11+ transfers)
+
+```bash
+curl -X POST http://localhost:5000/api/wallet/transfer \
+  -H "Authorization: Bearer <your-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"receiver_id": 2, "amount": 100}'
+```
+📝 View Flagged Transactions
+
+```bash
+curl -X GET http://localhost:5000/api/admin/suspicious-transactions \
+  -H "Authorization: Bearer <admin-token>"
+```
+
+
+
+
+
 
 ## Fraud Detection
 
