@@ -112,157 +112,121 @@ print(response.json())
 
 
 
-## API Usage
+## Testing with PowerShell
 
-### Authentication
+### 1. Authentication
+```powershell
+# Register new user
+$body = @{
+    email = "user@example.com"
+    password = "password123"
+    first_name = "John"
+    last_name = "Doe"
+} | ConvertTo-Json
 
-1. Register a new user:
-```bash
-curl -X POST http://localhost:5000/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"email":"user@example.com","password":"password123","first_name":"John","last_name":"Doe"}'
+$headers = @{ 'Content-Type' = 'application/json' }
+Invoke-RestMethod -Uri 'http://localhost:5000/api/auth/register' -Method Post -Headers $headers -Body $body
+
+# Login
+$loginBody = @{
+    email = "user@example.com"
+    password = "password123"
+} | ConvertTo-Json
+$response = Invoke-RestMethod -Uri 'http://localhost:5000/api/auth/login' -Method Post -Headers $headers -Body $loginBody
+$token = $response.access_token
+$authHeaders = @{
+    'Authorization' = "Bearer $token"
+    'Content-Type' = 'application/json'
+}
 ```
 
-2. Login:
-```bash
-curl -X POST http://localhost:5000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"user@example.com","password":"password123"}'
+### 2. Wallet Operations
+```powershell
+# Check balance
+Invoke-RestMethod -Uri 'http://localhost:5000/api/wallet/balance' -Method Get -Headers $authHeaders
+
+# Make deposit
+$body = @{ amount = 1000 } | ConvertTo-Json
+Invoke-RestMethod -Uri 'http://localhost:5000/api/wallet/deposit' -Method Post -Headers $authHeaders -Body $body
+
+# Make withdrawal
+$body = @{ amount = 500 } | ConvertTo-Json
+Invoke-RestMethod -Uri 'http://localhost:5000/api/wallet/withdraw' -Method Post -Headers $authHeaders -Body $body
+
+# Make transfer
+$body = @{
+    receiver_id = 2
+    amount = 300
+} | ConvertTo-Json
+Invoke-RestMethod -Uri 'http://localhost:5000/api/wallet/transfer' -Method Post -Headers $authHeaders -Body $body
+
+# View transaction history
+Invoke-RestMethod -Uri 'http://localhost:5000/api/wallet/transactions' -Method Get -Headers $authHeaders
 ```
 
-### Wallet Operations
+### 3. Admin Operations
+```powershell
+# Get admin token
+$adminBody = @{
+    email = "admin@example.com"
+    password = "admin123"
+} | ConvertTo-Json
+$response = Invoke-RestMethod -Uri 'http://localhost:5000/api/auth/login' -Method Post -Headers $headers -Body $adminBody
+$adminToken = $response.access_token
+$adminHeaders = @{
+    'Authorization' = "Bearer $adminToken"
+    'Content-Type' = 'application/json'
+}
 
-1. Check wallet balance:
-```bash
-curl -X GET http://localhost:5000/api/wallet/balance \
-  -H "Authorization: Bearer <your-token>"
+# View suspicious transactions
+Invoke-RestMethod -Uri 'http://localhost:5000/api/admin/suspicious-transactions' -Method Get -Headers $adminHeaders
+
+# View user balances
+Invoke-RestMethod -Uri 'http://localhost:5000/api/admin/user-balances' -Method Get -Headers $adminHeaders
+
+# View system statistics
+Invoke-RestMethod -Uri 'http://localhost:5000/api/admin/system-stats' -Method Get -Headers $adminHeaders
+
+# View top users by balance
+Invoke-RestMethod -Uri 'http://localhost:5000/api/admin/top-users/balance?limit=5' -Method Get -Headers $adminHeaders
+
+# View top users by volume
+Invoke-RestMethod -Uri 'http://localhost:5000/api/admin/top-users/volume?days=30' -Method Get -Headers $adminHeaders
 ```
 
-2. Make a deposit:
-```bash
-curl -X POST http://localhost:5000/api/wallet/deposit \
-  -H "Authorization: Bearer <your-token>" \
-  -H "Content-Type: application/json" \
-  -d '{"amount": 1000}'
+### 4. Soft Delete Operations
+```powershell
+# Soft delete user
+$userId = 1  # Replace with actual user ID
+Invoke-RestMethod -Uri "http://localhost:5000/api/admin/users/$userId/delete" -Method Delete -Headers $adminHeaders
+
+# View deleted users
+Invoke-RestMethod -Uri 'http://localhost:5000/api/admin/users/deleted' -Method Get -Headers $adminHeaders
+
+# Soft delete transaction
+$transactionId = 1  # Replace with actual transaction ID
+Invoke-RestMethod -Uri "http://localhost:5000/api/admin/transactions/$transactionId/delete" -Method Delete -Headers $adminHeaders
+
+# View deleted transactions
+Invoke-RestMethod -Uri 'http://localhost:5000/api/admin/transactions/deleted' -Method Get -Headers $adminHeaders
 ```
 
-3. Make a withdrawal:
-```bash
-curl -X POST http://localhost:5000/api/wallet/withdraw \
-  -H "Authorization: Bearer <your-token>" \
-  -H "Content-Type: application/json" \
-  -d '{"amount": 500}'
+### 5. Trigger Alert Scenarios
+```powershell
+# Trigger large transaction alert
+$body = @{ amount = 15000 } | ConvertTo-Json
+Invoke-RestMethod -Uri 'http://localhost:5000/api/wallet/deposit' -Method Post -Headers $authHeaders -Body $body
+
+# Trigger high-frequency transfers alert
+1..11 | ForEach-Object {
+    $body = @{
+        receiver_id = 2
+        amount = 100
+    } | ConvertTo-Json
+    Invoke-RestMethod -Uri 'http://localhost:5000/api/wallet/transfer' -Method Post -Headers $authHeaders -Body $body
+    Start-Sleep -Seconds 1
+}
 ```
-
-4. Make a transfer:
-```bash
-curl -X POST http://localhost:5000/api/wallet/transfer \
-  -H "Authorization: Bearer <your-token>" \
-  -H "Content-Type: application/json" \
-  -d '{"receiver_id": 2, "amount": 300}'
-```
-
-5. View transaction history:
-```bash
-curl -X GET http://localhost:5000/api/wallet/transactions \
-  -H "Authorization: Bearer <your-token>"
-```
-
-### Admin Operations
-
-1. View suspicious transactions:
-```bash
-curl -X GET http://localhost:5000/api/admin/suspicious-transactions \
-  -H "Authorization: Bearer <admin-token>"
-```
-
-2. View user balances:
-```bash
-curl -X GET http://localhost:5000/api/admin/user-balances \
-  -H "Authorization: Bearer <admin-token>"
-```
-
-3. View system statistics:
-```bash
-curl -X GET http://localhost:5000/api/admin/system-stats \
-  -H "Authorization: Bearer <admin-token>"
-```
-4. Soft delete a transaction:
-```bash
-curl -X DELETE http://localhost:5000/api/admin/transactions/<transaction_id>/delete \
-  -H "Authorization: Bearer <admin-token>"
-```
-
-5. View deleted transactions:
-```bash
-curl -X GET http://localhost:5000/api/admin/transactions/deleted \
-  -H "Authorization: Bearer <admin-token>"
-```
-## Bonus Feature Commands
-
- 1. Scheduled Job for Daily Fraud Scans  
-Automatically runs (e.g., via APScheduler) — no manual cURL trigger needed.
-
-**To view results:**  
-```bash
-curl -X GET http://localhost:5000/api/admin/suspicious-transactions \
-  -H "Authorization: Bearer <admin-token>"
-```
-2. Soft Delete for Users and Transactions
-   
- Soft Delete a User
-
-```bash
-curl -X DELETE http://localhost:5000/api/admin/users/<user_id>/delete \
-  -H "Authorization: Bearer <admin-token>"
-```
- View Deleted Users
-
-```bash
-curl -X GET http://localhost:5000/api/admin/users/deleted \
-  -H "Authorization: Bearer <admin-token>"
-```
- Soft Delete a Transaction
-```bash
-curl -X DELETE http://localhost:5000/api/admin/transactions/<transaction_id>/delete \
-  -H "Authorization: Bearer <admin-token>"
-```
- View Deleted Transactions
-
-```bash
-curl -X GET http://localhost:5000/api/admin/transactions/deleted \
-  -H "Authorization: Bearer <admin-token>"
-```
- 3. Mocked Email Alerts for Suspicious Activity
-    
-Alerts are logged (not sent) and triggered by unusual activity.
-
- Trigger Large Transaction Alert
-
-```bash
-curl -X POST http://localhost:5000/api/wallet/deposit \
-  -H "Authorization: Bearer <your-token>" \
-  -H "Content-Type: application/json" \
-  -d '{"amount": 15000}'
-```
- Trigger High-Frequency Transfers Alert (send 11+ transfers)
-
-```bash
-curl -X POST http://localhost:5000/api/wallet/transfer \
-  -H "Authorization: Bearer <your-token>" \
-  -H "Content-Type: application/json" \
-  -d '{"receiver_id": 2, "amount": 100}'
-```
- View Flagged Transactions
-
-```bash
-curl -X GET http://localhost:5000/api/admin/suspicious-transactions \
-  -H "Authorization: Bearer <admin-token>"
-```
-
-
-
-
 
 
 ## Fraud Detection
