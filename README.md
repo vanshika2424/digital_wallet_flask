@@ -3,6 +3,10 @@
 A secure, Flask-based backend system for digital wallet operations. Supports user registration, wallet transactions, fraud detection, admin analytics, and bonus features like email alerts and soft deletes.
 
 ---
+## Demo Video
+
+Here is the demo video showcasing the features of the Digital Wallet system:  
+https://drive.google.com/file/d/1Sla0l1vITRhp63QGeJiibZZneGl6qHrG/view?usp=sharing
 
 ##  Features
 
@@ -411,10 +415,7 @@ Access the Swagger documentation at `/api/docs` when the application is running.
 
 
 
-## Demo Video
 
-Here is the demo video showcasing the features of the Digital Wallet system:  
-https://drive.google.com/file/d/17AtkpKye_b77It-pCktSQ0gfpOVLPjnW/view?usp=sharing)
 
 
 
