@@ -367,7 +367,6 @@ Access the Swagger documentation at `/api/docs` when the application is running.
 
 MIT License
 
-A secure digital wallet system built with Flask that supports user authentication, wallet operations, fraud detection, and administrative features.
 
 
 
