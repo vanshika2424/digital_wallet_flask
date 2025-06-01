@@ -298,21 +298,7 @@ The system comes with a default admin account:
 
 **Note**: Change these credentials in production.
 
-## License
 
-MIT License
-
-A secure digital wallet system built with Flask that supports user authentication, wallet operations, fraud detection, and administrative features.
-
-## Features
-
-- User Authentication & Session Management
-- Wallet Operations (deposits, withdrawals, transfers)
-- Transaction Processing & Validation
-- Basic Fraud Detection
-- Admin & Reporting APIs
-- Scheduled Jobs for Fraud Detection
-- Email Alerts for Suspicious Activities
 
 ## Setup
 
@@ -376,6 +362,13 @@ curl -X POST http://localhost:5000/api/wallet/deposit \
 - Rate limiting on endpoints
 
 Access the Swagger documentation at `/api/docs` when the application is running.
+
+## License
+
+MIT License
+
+A secure digital wallet system built with Flask that supports user authentication, wallet operations, fraud detection, and administrative features.
+
 
 
 
