@@ -2,7 +2,7 @@ from datetime import datetime
 from . import db, bcrypt
 
 class User(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
     
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -14,8 +14,6 @@ class User(db.Model):
     is_deleted = db.Column(db.Boolean, default=False)  # Soft delete flag
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    deleted_at = db.Column(db.DateTime, nullable=True)
-    is_deleted = db.Column(db.Boolean, default=False)
     deleted_at = db.Column(db.DateTime, nullable=True)  # Timestamp when soft deleted
     
     # Relationships
@@ -38,16 +36,12 @@ class User(db.Model):
     def soft_delete(self):
         self.is_deleted = True
         self.deleted_at = datetime.utcnow()
+        self.is_active = False
         if self.wallet:
             self.wallet.is_deleted = True
             self.wallet.deleted_at = datetime.utcnow()
-        return self
-    
-    def soft_delete(self):
-        self.is_deleted = True
-        self.deleted_at = datetime.utcnow()
-        self.is_active = False
         db.session.commit()
+        return self
 
     def to_dict(self):
         return {

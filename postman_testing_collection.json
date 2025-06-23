@@ -1,0 +1,321 @@
+{
+    "info": {
+        "_postman_id": "57e2a8d9-3f02-4e7a-8f9a-5d2e8f9a5e7f",
+        "name": "Digital Wallet API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "1. User Authentication & Session Management",
+            "description": "Endpoints for user registration, login, and profile management",
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"{{user_email}}\",\n    \"password\": \"{{user_password}}\",\n    \"first_name\": \"{{user_first_name}}\",\n    \"last_name\": \"{{user_last_name}}\"\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/auth/register", "host": ["{{baseURL}}"], "path": ["api", "auth", "register"]}
+                    }
+                },
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"{{user_email}}\",\n    \"password\": \"{{user_password}}\"\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/auth/login", "host": ["{{baseURL}}"], "path": ["api", "auth", "login"]}
+                    }
+                },
+                {
+                    "name": "Get Profile",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "GET",
+                        "url": {"raw": "{{baseURL}}/api/auth/profile", "host": ["{{baseURL}}"], "path": ["api", "auth", "profile"]}
+                    }
+                },
+                {
+                    "name": "Update Profile",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "PUT",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"first_name\": \"{{updated_first_name}}\",\n    \"last_name\": \"{{updated_last_name}}\"\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/auth/profile", "host": ["{{baseURL}}"], "path": ["api", "auth", "profile"]}
+                    }
+                }
+            ]
+        },
+        {
+            "name": "2. Wallet Operations",
+            "description": "Basic wallet operations and balance management",
+            "item": [
+                {
+                    "name": "Get Balance",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "GET",
+                        "url": {"raw": "{{baseURL}}/api/wallet/balance", "host": ["{{baseURL}}"], "path": ["api", "wallet", "balance"]}
+                    }
+                },
+                {
+                    "name": "Deposit",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"amount\": {{deposit_amount}}\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/wallet/deposit", "host": ["{{baseURL}}"], "path": ["api", "wallet", "deposit"]}
+                    }
+                },
+                {
+                    "name": "Withdraw",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"amount\": {{withdraw_amount}}\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/wallet/withdraw", "host": ["{{baseURL}}"], "path": ["api", "wallet", "withdraw"]}
+                    }
+                },
+                {
+                    "name": "Transfer",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"receiver_email\": \"{{receiver_email}}\",\n    \"amount\": {{transfer_amount}}\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/wallet/transfer", "host": ["{{baseURL}}"], "path": ["api", "wallet", "transfer"]}
+                    }
+                },
+                {
+                    "name": "Get Transactions",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "GET",
+                        "url": {"raw": "{{baseURL}}/api/wallet/transactions", "host": ["{{baseURL}}"], "path": ["api", "wallet", "transactions"]}
+                    }
+                }
+            ]
+        },
+        {
+            "name": "3. Transaction Processing & Validation",
+            "description": "Transaction validation and error handling",
+            "item": [
+                {
+                    "name": "Test Atomicity",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"amount\": {{atomicity_amount}}\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/wallet/withdraw", "host": ["{{baseURL}}"], "path": ["api", "wallet", "withdraw"]}
+                    }
+                },
+                {
+                    "name": "Test Overdraft",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"amount\": {{overdraft_amount}}\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/wallet/withdraw", "host": ["{{baseURL}}"], "path": ["api", "wallet", "withdraw"]}
+                    }
+                },
+                {
+                    "name": "Test Negative Amount",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"amount\": {{negative_amount}}\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/wallet/deposit", "host": ["{{baseURL}}"], "path": ["api", "wallet", "deposit"]}
+                    }
+                }
+            ]
+        },
+        {
+            "name": "4. Basic Fraud Detection Logic",
+            "description": "Fraud detection and suspicious activity monitoring",
+            "item": [
+                {
+                    "name": "Trigger Multiple Transfers",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"receiver_email\": \"{{fraud_receiver_email}}\",\n    \"amount\": {{fraud_transfer_amount}}\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/wallet/transfer", "host": ["{{baseURL}}"], "path": ["api", "wallet", "transfer"]}
+                    }
+                },
+                {
+                    "name": "Trigger Large Withdrawal",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"amount\": {{large_withdrawal_amount}}\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/wallet/withdraw", "host": ["{{baseURL}}"], "path": ["api", "wallet", "withdraw"]}
+                    }
+                },
+                {
+                    "name": "View Suspicious Transactions",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "GET",
+                        "url": {"raw": "{{baseURL}}/api/admin/suspicious-transactions", "host": ["{{baseURL}}"], "path": ["api", "admin", "suspicious-transactions"]}
+                    }
+                }
+            ]
+        },
+        {
+            "name": "5. Admin & Reporting APIs",
+            "description": "Admin features and system reporting",
+            "item": [
+                {
+                    "name": "View User Balances",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "GET",
+                        "url": {"raw": "{{baseURL}}/api/admin/balances", "host": ["{{baseURL}}"], "path": ["api", "admin", "balances"]}
+                    }
+                },
+                {
+                    "name": "View Top Users by Balance",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "GET",
+                        "url": {"raw": "{{baseURL}}/api/admin/top-users/balance?limit={{top_users_limit}}", "host": ["{{baseURL}}"], "path": ["api", "admin", "top-users", "balance"], "query": [{"key": "limit", "value": "{{top_users_limit}}"}]}
+                    }
+                },
+                {
+                    "name": "View Top Users by Volume",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "GET",
+                        "url": {"raw": "{{baseURL}}/api/admin/top-users/volume?limit={{top_users_limit}}&days={{volume_days}}", "host": ["{{baseURL}}"], "path": ["api", "admin", "top-users", "volume"], "query": [{"key": "limit", "value": "{{top_users_limit}}"}, {"key": "days", "value": "{{volume_days}}"}]}
+                    }
+                },
+                {
+                    "name": "Manual Fraud Scan",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "POST",
+                        "url": {"raw": "{{baseURL}}/api/admin/scan/fraud", "host": ["{{baseURL}}"], "path": ["api", "admin", "scan", "fraud"]}
+                    }
+                },
+                {
+                    "name": "Get System Stats",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "GET",
+                        "url": {"raw": "{{baseURL}}/api/admin/stats", "host": ["{{baseURL}}"], "path": ["api", "admin", "stats"]}
+                    }
+                }
+            ]
+        },
+        {
+            "name": "6. Bonus Challenges",
+            "description": "Advanced features and challenges",
+            "item": [
+                {
+                    "name": "Soft Delete User",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "DELETE",
+                        "url": {"raw": "{{baseURL}}/api/admin/users/{{user_id}}/soft-delete", "host": ["{{baseURL}}"], "path": ["api", "admin", "users", "{{user_id}}", "soft-delete"]}
+                    }
+                },
+                {
+                    "name": "Soft Delete Transaction",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "DELETE",
+                        "url": {"raw": "{{baseURL}}/api/admin/transactions/{{transaction_id}}/soft-delete", "host": ["{{baseURL}}"], "path": ["api", "admin", "transactions", "{{transaction_id}}", "soft-delete"]}
+                    }
+                },
+                {
+                    "name": "List Soft Deleted Users",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "GET",
+                        "url": {"raw": "{{baseURL}}/api/admin/users/deleted", "host": ["{{baseURL}}"], "path": ["api", "admin", "users", "deleted"]}
+                    }
+                },
+                {
+                    "name": "Trigger Large Transaction Alert",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"receiver_email\": \"{{alert_receiver_email}}\",\n    \"amount\": {{alert_amount}}\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/wallet/transfer", "host": ["{{baseURL}}"], "path": ["api", "wallet", "transfer"]}
+                    }
+                },
+                {
+                    "name": "Trigger Suspicious Activity Alert",
+                    "request": {
+                        "auth": {"type": "bearer", "bearer": [{"key": "token", "value": "{{jwt_token}}", "type": "string"}]},
+                        "method": "POST",
+                        "header": [{"key": "Content-Type", "value": "application/json"}],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"receiver_email\": \"{{suspicious_email}}\",\n    \"amount\": {{suspicious_amount}}\n}",
+                            "options": {"raw": {"language": "json"}}
+                        },
+                        "url": {"raw": "{{baseURL}}/api/wallet/transfer", "host": ["{{baseURL}}"], "path": ["api", "wallet", "transfer"]}
+                    }
+                }
+            ]
+        }
+    ]
+}

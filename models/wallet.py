@@ -2,10 +2,10 @@ from datetime import datetime
 from . import db
 
 class Wallet(db.Model):
-    __tablename__ = 'wallets'
+    __tablename__ = 'wallet'
     
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     balance = db.Column(db.Float, default=0.0)
     currency = db.Column(db.String(3), default='USD')
     is_active = db.Column(db.Boolean, default=True)
@@ -14,10 +14,15 @@ class Wallet(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     deleted_at = db.Column(db.DateTime, nullable=True)  # Timestamp when soft deleted
     
-    transactions = db.relationship('Transaction', 
-                                 primaryjoin="or_(Wallet.id==Transaction.wallet_id, "
-                                           "Wallet.id==Transaction.receiver_wallet_id)",
-                                 lazy=True)
+    transactions_sent = db.relationship('Transaction',
+                                    foreign_keys='Transaction.wallet_id',
+                                    backref='sender_wallet',
+                                    lazy=True)
+    
+    transactions_received = db.relationship('Transaction',
+                                       foreign_keys='Transaction.receiver_wallet_id',
+                                       backref='receiver_wallet',
+                                       lazy=True)
     
     def soft_delete(self):
         self.is_deleted = True
