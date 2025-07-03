@@ -5,6 +5,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from tasks.scheduled_tasks import scan_for_fraud
 from config import Config
 from models import init_models, db
+from flask_cors import CORS
 import logging
 import os
 
@@ -31,6 +32,7 @@ def jwt_config(app):
 
 def create_app(config_class=Config):
     app = Flask(__name__)
+    CORS(app)  # Enable CORS for all routes
     app.config.from_object(config_class)
     
     # Initialize extensions
