@@ -43,8 +43,13 @@ A secure and intelligent digital wallet system with cash management, fraud detec
 | Deployment  | Local (ready for Render/Vercel)     |
 
 ---
+## Project Structure
 
-<pre> ## Project Structure ``` digital_wallet_flask/ ├── digifrontend/ # Frontend built with Next.js ├── app.py # Flask backend main file ├── requirements.txt # Python backend dependencies └── README.md # Project overview and instructions ``` </pre>
+digital_wallet_flask/
+├── digifrontend/ # Frontend built with Next.js
+├── app.py # Flask backend main file
+├── requirements.txt # Python backend dependencies
+└── README.md # Project overview and instructions
 
 ---
 
