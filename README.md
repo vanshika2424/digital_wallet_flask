@@ -68,11 +68,15 @@ venv\Scripts\activate         # On Windows
 pip install -r requirements.txt
 python app.py
 ---
+This will start the Flask backend server at http://127.0.0.1:5000/
 
-**### Frontend (Next.js)**
+## Frontend Setup (Next.js)
 
+```bash
 cd digifrontend
 npm install
-npm run dev
+npm run 
+---
+This will start the frontend development server at http://localhost:3000/
 
 
