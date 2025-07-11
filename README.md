@@ -52,11 +52,71 @@ https://drive.google.com/file/d/1Sla0l1vITRhp63QGeJiibZZneGl6qHrG/view?usp=shari
 
 ## Tech Stack
 
+### Backend
 - **Framework**: Python Flask
 - **Authentication**: JWT + bcrypt
 - **Database**: SQLite (configurable)
 - **Docs**: Swagger at `/api/docs`
 - **Testing**: Postman, cURL, Python `requests`, PowerShell
+
+### Frontend
+- **Framework**: React + TypeScript
+- **Build Tool**: Vite
+- **UI Components**: Radix UI + Tailwind CSS
+- **Routing**: React Router
+- **Authentication**: JWT with protected routes
+- **State Management**: React Context
+- **Form Handling**: React Hook Form
+- **API Client**: Axios
+- **Testing**: Jest + React Testing Library
+
+## Project Structure
+
+```
+digital_wallet_flask/
+├── app/              # Flask application code
+├── digifrontend/     # React frontend application
+│   ├── src/
+│   │   ├── components/  # UI components
+│   │   ├── pages/      # React pages
+│   │   ├── hooks/      # Custom React hooks
+│   │   └── utils/      # Utility functions
+│   ├── public/        # Static assets
+│   └── vite.config.ts # Vite configuration
+└── requirements.txt   # Python dependencies
+```
+
+## Frontend Setup
+
+1. Navigate to the frontend directory:
+```bash
+cd digifrontend
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+npm run dev
+```
+
+4. Build for production:
+```bash
+npm run build
+```
+
+The frontend application includes modern UI components and features such as:
+- Responsive navigation
+- Protected routes with authentication
+- Toast notifications
+- Form validation
+- Mobile-friendly design
+- Dark/light theme support
+- Loading states and error handling
+- API integration with backend endpoints
 
 ## API Reference
 
