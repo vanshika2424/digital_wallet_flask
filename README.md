@@ -1,38 +1,53 @@
 # DigiVault – Digital Wallet System
 
-A secure and intelligent digital wallet system with cash management, fraud detection, user analytics, and a modern frontend interface.
+A secure, scalable, and intelligent digital wallet platform supporting seamless cash management, real-time fraud detection, role-based access control, and an analytics-driven admin dashboard — powered by a modern tech stack.
 
 ---
 
-## Features
+## Authentication & Access Control
 
-- **JWT-based Authentication**  
-  Secure login and signup using bcrypt password hashing and JWT-based token authentication.
-
-- **Wallet Operations**  
-  - Add and withdraw funds  
-  - Peer-to-peer transfers  
-  - Soft-deletion of transactions with audit logging
-
-- **Fraud Detection Engine**  
-  - Detects unusually large transactions  
-  - Flags high-frequency transfers  
-  - Enforces daily transaction limits
-
-- **Admin Dashboard**  
-  - System statistics  
-  - Suspicious transactions  
-  - Deleted users list  
-  - Top users by balance and transaction volume  
-  - Manual fraud scan trigger
-
-- **Frontend (React + Next.js)**  
-  - Built with TypeScript and Tailwind CSS  
-  - Responsive and modern user interface  
-  - Fully integrated with Flask backend
+- Secure user login and registration using **bcrypt** for password hashing and **JWT-based** token authentication.
+- Supports **role-based access** (User/Admin) with protected API routes and session handling.
 
 ---
 
+## Wallet Operations
+
+- Users can **deposit**, **withdraw**, and **transfer funds** securely between wallets.
+- Real-time **wallet balance updates** with proper validation and transaction status handling.
+- Users can **view their full transaction history**, including amount, type, timestamp, and status.
+- Implements **soft-deletion of transactions** with audit logging to maintain data integrity.
+
+---
+
+## Fraud Detection Engine
+
+- Detects **high-value** and **high-frequency** transactions using rule-based logic.
+- Enforces **daily transaction limits** to prevent abuse or suspicious behavior.
+- Includes **manual fraud scan trigger** for system-wide anomaly detection.
+- Can be extended with **SMTP-based alerting** for real-time fraud notifications.
+
+---
+
+## Admin Dashboard Features
+
+- Displays real-time **system statistics** including total users, transaction count, volume, and platform balance.
+- Admins can view:
+  - **Suspicious transactions**
+  - **Deleted users**
+  - **Top users** by wallet balance and transaction volume
+- Provides control tools like **manual fraud scans** and user/transaction soft deletion.
+
+---
+
+## Frontend Interface
+
+- Developed with **Next.js (React)**, **TypeScript**, and **Tailwind CSS**.
+- Fully **responsive**, modern UI with intuitive navigation and **dark mode toggle**.
+- Integrates seamlessly with Flask backend via RESTful APIs.
+- Features include dashboard views, filtering, and real-time data rendering.
+
+---
 ## Tech Stack
 
 | Layer       | Technology                         |
