@@ -3,74 +3,151 @@
 A secure, scalable, and intelligent digital wallet platform supporting seamless cash management, real-time fraud detection, role-based access control, and an analytics-driven admin dashboard — powered by a modern tech stack.
 
 ---
+## Features
 
-## Authentication & Access Control
+### User Features
+- Secure registration and login with email verification
+- Real-time wallet balance updates
+- Transaction history with search and filtering
+- Quick deposit and withdrawal operations
+- Transfer funds to other users
+- Dark/light theme support
+- Responsive design for all devices
 
-- Secure user login and registration using **bcrypt** for password hashing and **JWT-based** token authentication.
-- Supports **role-based access** (User/Admin) with protected API routes and session handling.
+### Admin Features
+- User management dashboard
+- Transaction monitoring and analytics
+- Fraud detection and alerts
+- System statistics and reports
+- Top users analytics
+- Transaction volume tracking
+- Soft delete and recovery
 
----
+### Security Features
+- JWT authentication & bcrypt password hashing
+- Role-based access control
+- Transaction monitoring with fraud scores
+- Automatic daily fraud scans
+- Real-time email alerts for:
+  - Large transactions
+  - High-frequency activity
+  - Daily limit breaches
+- Soft delete with audit trail
 
-## Wallet Operations
+### Monitoring
+- Application logs in app.log
+- Daily fraud reports
+- System statistics
+- Transaction rollback on failures
+- Rate limiting on endpoints
 
-- Users can **deposit**, **withdraw**, and **transfer funds** securely between wallets.
-- Real-time **wallet balance updates** with proper validation and transaction status handling.
-- Users can **view their full transaction history**, including amount, type, timestamp, and status.
-- Implements **soft-deletion of transactions** with audit logging to maintain data integrity.
-
----
-
-## Fraud Detection Engine
-
-- Detects **high-value** and **high-frequency** transactions using rule-based logic.
-- Enforces **daily transaction limits** to prevent abuse or suspicious behavior.
-- Includes **manual fraud scan trigger** for system-wide anomaly detection.
-- Can be extended with **SMTP-based alerting** for real-time fraud notifications.
-
----
-
-## Admin Dashboard Features
-
-- Displays real-time **system statistics** including total users, transaction count, volume, and platform balance.
-- Admins can view:
-  - **Suspicious transactions**
-  - **Deleted users**
-  - **Top users** by wallet balance and transaction volume
-- Provides control tools like **manual fraud scans** and user/transaction soft deletion.
-
----
-
-## Frontend Interface
-
-- Developed with **Next.js (React)**, **TypeScript**, and **Tailwind CSS**.
-- Fully **responsive**, modern UI with intuitive navigation and **dark mode toggle**.
-- Integrates seamlessly with Flask backend via RESTful APIs.
-- Features include dashboard views, filtering, and real-time data rendering.
 
 ---
+
 ## Tech Stack
 
-| Layer       | Technology                         |
-|-------------|-------------------------------------|
-| Backend     | Python Flask, SQLite, JWT, bcrypt  |
-| Frontend    | React, Next.js (TypeScript), Tailwind CSS |
-| API         | RESTful APIs                        |
-| Deployment  | Local (ready for Render/Vercel)     |
+- **Backend**: Flask with PostgreSQL
+- **Frontend**: React + TypeScript + Vite
+- **UI**: Shadcn UI + Tailwind CSS
+- **Authentication**: JWT
+- **State Management**: React Query
 
----
 ## Project Structure
 
+```
 digital_wallet_flask/
+├── app.py              # Main Flask application
+├── config.py           # Configuration settings
+├── models/             # Database models
+├── routes/             # API routes
+├── services/           # Business logic services
+├── static/             # Static files
+├── templates/          # HTML templates
+├── digifrontend/       # Frontend React application
+│   ├── src/
+│   │   ├── components/  # React components
+│   │   ├── pages/      # Frontend pages
+│   │   ├── hooks/      # Custom React hooks
+│   │   └── utils/      # Utility functions
+│   ├── public/        # Static assets
+│   └── vite.config.ts # Vite configuration
+└── requirements.txt    # Python dependencies
+```
 
-├── digifrontend/ # Frontend built with Next.js
+## Getting Started
 
-├── app.py # Flask backend main file
+### Prerequisites
 
-├── requirements.txt # Python backend dependencies
-
-└── README.md # Project overview and instructions
-
+- Python 3.8+
+- Node.js 16+
+- npm or yarn
 ---
+## Setup Instructions
+
+### Local Development Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/digital-wallet.git
+cd digital-wallet
+```
+
+2. Backend Setup:
+```bash
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Copy environment file and configure
+mv .env.example .env
+# Edit .env with your configuration
+
+# Initialize database
+python init_db.py
+```
+
+3. Frontend Setup:
+```bash
+cd digifrontend
+npm install
+```
+
+4. Run both servers:
+```bash
+# In one terminal (backend)
+python run_server.py
+
+# In another terminal (frontend)
+cd digifrontend
+npm run dev
+```
+
+### Environment Variables
+
+```bash
+# Flask Configuration
+FLASK_APP=run_server.py
+FLASK_ENV=development
+FLASK_DEBUG=true
+
+# Database Configuration
+DATABASE_URL=sqlite:///digital_wallet.db  # For local development
+# DATABASE_URL=postgresql://user:password@host:port/dbname  # For production
+
+# JWT Configuration
+JWT_SECRET_KEY=your-secret-key-here
+JWT_ACCESS_TOKEN_EXPIRES=3600
+
+# CORS Configuration
+CORS_ORIGINS=http://localhost:5173  # Frontend development server
+
+# Other Configuration
+SECRET_KEY=your-secret-key-here
+```
+
 
 
 
