@@ -74,24 +74,82 @@ digital_wallet_flask/
 
 ## Setup Instructions
 
-### Backend (Flask)
+
+### Prerequisites
+
+- Node.js (v18+ recommended)
+- Python (3.8+)
+- pip (Python package installer)
+- Git
+- (Optional) PostgreSQL if switching from SQLite for production
+
+### 1. Clone the Repository
 
 ```bash
-cd digital_wallet_flask
+git clone https://github.com/your-username/digivault.git
+cd digivault
+2. Backend Setup (Flask)
+bash
+Copy
+Edit
+cd server
+
+# Create and activate virtual environment (optional but recommended)
 python -m venv venv
-venv\Scripts\activate         # On Windows
+source venv/bin/activate   # On Windows: venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
-python app.py
----
-This will start the Flask backend server at http://127.0.0.1:5000/
 
-## Frontend Setup (Next.js)
+# Run the Flask server
+flask run
+Ensure you have a .env file in the server/ directory:
 
-```bash
-cd digifrontend
+ini
+Copy
+Edit
+FLASK_ENV=development
+SECRET_KEY=your_secret_key
+DATABASE_URL=sqlite:///db.sqlite3
+3. Frontend Setup (Next.js)
+bash
+Copy
+Edit
+cd ../client
+
+# Install dependencies
 npm install
-npm run 
----
-This will start the frontend development server at http://localhost:3000/
+
+# Run the Next.js development server
+npm run dev
+Create a .env.local file inside the client/ directory:
+
+ini
+Copy
+Edit
+NEXT_PUBLIC_API_URL=http://127.0.0.1:5000
+4. View the App
+Frontend: http://localhost:3000
+
+Backend API: http://localhost:5000
+
+Future Improvements
+Migrate to PostgreSQL for production environments
+
+Add OTP or 2FA support for enhanced login security
+
+Visual transaction analytics (charts and graphs)
+
+Export transaction history as CSV or PDF
+
+Deployment Recommendations
+Frontend: Vercel
+
+Backend: Render or Railway
+
+Ensure appropriate environment variables are configured on both platforms
+
+License
+This project is open-source and available under the MIT License.
 
 
